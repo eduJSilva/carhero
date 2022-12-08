@@ -1,0 +1,52 @@
+<h1>{{titulo}}</h1>
+<ul class="cars">
+<li *ngFor="let car of cars" (click)="onSelect(car)">{{car.marca}}</li>
+</ul>
+<h2>{{selectedCar.marca +", " + selectedCar.detalle}}</h2>
+
+<label class="mr-sm-2" for="inlineFormCustomSelect">{{marcaBuscar}}</label>
+<div class="col-auto my-1">
+  <select [(ngModel)]="marcaBuscar" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+    <option selected>Elegir...</option>
+    <option *ngFor="let car of cars" >{{car.marca}}</option>
+  </select>
+</div>
+
+<form>
+  <div class="form-row align-items-center">
+    <div class="col-auto my-1">
+      <div class="custom-control custom-checkbox mr-sm-2">
+        <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+        <label class="custom-control-label" for="customControlAutosizing">Remember my preference</label>
+      </div>
+    </div>
+    <div class="col-auto my-1">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+</form>
+
+
+
+
+<ul class="cars">
+  <li *ngFor="let car of cars">
+    <div class="card" style="width: 18rem;">
+      <img src={{car.imagen}} class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{car.marca}}</h5>
+        <p class="card-text">{{car.detalle}}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{car.modelo}}</li>
+        <li class="list-group-item">{{car.precio |  currency:'':'symbol':'1.0-2'}}</li>
+        <li class="list-group-item">{{car.anio}}</li>
+        <li class="list-group-item">{{car.km}} Km</li>
+      </ul>
+      <div class="card-body">
+        <a href={{car.link}} class="card-link">Link</a>
+
+      </div>
+    </div>
+  </li>
+</ul>
