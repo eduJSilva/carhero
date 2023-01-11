@@ -1,7 +1,13 @@
 <h1>{{titulo}}</h1>
 <ul class="cars">
-<li *ngFor="let car of cars" (click)="onSelect(car)">{{car.marca}}</li>
+<li *ngFor="let car of cars">
+  <a routerLink="/detail/{{car.id}}">
+    <span class="badge">{{car.id}}</span> {{car.marca}}
+  </a>
+</li>
 </ul>
+
+<!--
 <h2>{{selectedCar.marca +", " + selectedCar.detalle}}</h2>
 
 <label class="mr-sm-2" for="inlineFormCustomSelect">{{marcaBuscar}}</label>
@@ -50,3 +56,7 @@
     </div>
   </li>
 </ul>
+
+
+-->
+

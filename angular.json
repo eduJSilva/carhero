@@ -102,5 +102,8 @@
       }
     }
   },
-  "defaultProject": "scraping-car"
+  "defaultProject": "scraping-car",
+  "cli": {
+    "analytics": false
+  }
 }
