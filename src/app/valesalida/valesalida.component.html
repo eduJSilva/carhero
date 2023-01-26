@@ -1,0 +1,55 @@
+
+
+
+<div id="search-component">
+  <h4><label for="search-box">Material Search</label></h4>
+
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+
+  <ul class="search-result">
+    <li *ngFor="let material of materiales$ | async" >
+
+        {{material.nombre}}
+
+  <button (click)="add(material.nombre)">
+    add
+  </button>
+    </li>
+  </ul>
+</div>
+
+<h2>Vale Materiales</h2>
+<div class="container">
+  <div class="row" style="color:black; background-color:beige; border-style:groove;">
+    <h3>Material</h3>
+<ul class="cars">
+<li *ngFor="let valematerial of valemateriales">
+
+
+  <div class="container">
+    <div class="row" style="color:black; background-color:aliceblue; border-style:groove;">
+
+      <div class="col-6">
+        {{valematerial.nombre}}</div>
+
+        <div class="col-6 col-sm-3">
+        <input type="number"  name="cantidad"
+        min="1" max="1000"></div>
+
+      <div class="col-6 col-sm-3">
+        <button class="delete" title="delete material"
+        (click)="delete(valematerial)">x</button>
+      </div>
+      </div>
+    </div>
+
+</li>
+</ul>
+<div class="col-6 col-sm-3">
+<button type="submit" class="btn btn-success">Enviar</button>
+</div>
+</div>
+
+</div>
+
+

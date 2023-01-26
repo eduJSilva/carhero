@@ -13,6 +13,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
+import { CarsComponent } from './cars/cars.component';
+import { CarSearchComponent } from './car-search/car-search.component';
+import { ValesalidaComponent } from './valesalida/valesalida.component';
+
+import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialDetailComponent } from './material-detail/material-detail.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +26,11 @@ import { InMemoryDataService } from './in-memory-data.service';
     FormBusquedaComponent,
     MessagesComponent,
     DashboardComponent,
-    CarDetailComponent
+    CarDetailComponent,
+    CarsComponent,
+    CarSearchComponent,
+    ValesalidaComponent,
+    MaterialDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,8 +41,9 @@ import { InMemoryDataService } from './in-memory-data.service';
 // and returns simulated server responses.
 // Remove it when a real server is ready to receive requests.
 HttpClientInMemoryWebApiModule.forRoot(
-  InMemoryDataService, { dataEncapsulation: false }
-)
+  InMemoryDataService, { delay: 500, dataEncapsulation: false }
+),
+ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

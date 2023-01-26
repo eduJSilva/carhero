@@ -4,9 +4,11 @@
   <div><span>id: </span>{{car.id}}</div>
   <div>
     <label>marca:
-      <input [(ngModel)]="car.marca" placeholder="name"/>
+      <input [(ngModel)]="car.marca" placeholder="marca"/>
     </label>
+
   </div>
+  <button (click)="save()">save</button>
 
   <button (click)="goBack()">go back</button>
 
