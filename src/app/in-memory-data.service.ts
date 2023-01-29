@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Car } from './car';
 import { Material } from './material';
+import {ValeMateriales} from './valeMateriales';
 
 @Injectable({
   providedIn: 'root',
@@ -167,8 +168,24 @@ export class InMemoryDataService implements InMemoryDbService {
         nombre: 'Curva 75 a 45'
       },
     ];
-    const valeMateriales = [
-{}
+    const valeMateriales: ValeMateriales[] = [
+{id:0,
+ supervisor: 'Cabrera',
+ operario: 'Triar',
+ obra: '2078',
+ fecha:'1000',
+ observaciones: 'observaciones',
+ materiales: [{id: 0, nombre:'semaforo', cantidad: 1}],
+},
+{id:1,
+  supervisor: 'Caraballo',
+  operario: 'Juan Perez',
+  obra: '1992',
+  fecha:'2000',
+  observaciones: 'observaciones1',
+  materiales: [{id: 0, nombre:'columna prfv 9m', cantidad: 2}],
+ }
+
     ];
     return {cars, materiales, valeMateriales};
   }
@@ -186,5 +203,9 @@ export class InMemoryDataService implements InMemoryDbService {
 
   genIdMaterial(materiales: Material[]): number {
     return materiales.length > 0 ? Math.max(...materiales.map(material => material.id)) + 1 : 11;
+  }
+
+  genIdValeMaterial(valeMateriales: ValeMateriales[]): number {
+    return valeMateriales.length > 0 ? Math.max(...valeMateriales.map(valeMateriales => valeMateriales.id)) + 1 : 11;
   }
 }

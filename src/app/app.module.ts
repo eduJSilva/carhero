@@ -19,6 +19,9 @@ import { ValesalidaComponent } from './valesalida/valesalida.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialDetailComponent } from './material-detail/material-detail.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,9 @@ import { MaterialDetailComponent } from './material-detail/material-detail.compo
 HttpClientInMemoryWebApiModule.forRoot(
   InMemoryDataService, { delay: 500, dataEncapsulation: false }
 ),
-ReactiveFormsModule
+ReactiveFormsModule,
+MatAutocompleteModule,
+BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

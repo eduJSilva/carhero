@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, tap, catchError } from 'rxjs';
 import { Material } from './material';
+import { ValeMateriales } from './valeMateriales';
 import { MessageService } from './message.service';
 
 
@@ -45,11 +46,11 @@ private handleError<T>(operation = 'operation', result?: T) {
 }
 
 /** GET cars from the server */
-getvaleMateriales(): Observable<Material[]> {
-  return this.http.get<Material[]>(this.valeMaterialesUrl)
+getvaleMateriales(): Observable<ValeMateriales[]> {
+  return this.http.get<ValeMateriales[]>(this.valeMaterialesUrl)
   .pipe(
     tap(_ => this.log('fetched valeMateriales')),
-    catchError(this.handleError<Material[]>('getvaleMateriales', []))
+    catchError(this.handleError<ValeMateriales[]>('getvaleMateriales', []))
   );
 }
 
@@ -105,14 +106,21 @@ addMaterial(material: Material): Observable<Material> {
   );
 }
 
+addValeMaterial(valeMaterial: ValeMateriales): Observable<ValeMateriales> {
+  return this.http.post<ValeMateriales>(this.valeMaterialesUrl, valeMaterial, this.httpOptions).pipe(
+    tap((newMaterial: ValeMateriales) => this.log(`added ValeMaterial w/ id=${newMaterial.id}`)),
+    catchError(this.handleError<ValeMateriales>('addValeMaterial'))
+  );
+}
+
 /** DELETE: delete the material from the server */
-deleteMaterial(material: Material | number): Observable<Material> {
+deleteMaterial(material: ValeMateriales | number): Observable<ValeMateriales> {
   const id = typeof material === 'number' ? material : material.id;
   const url = `${this.valeMaterialesUrl}/${id}`;
 
-  return this.http.delete<Material>(url, this.httpOptions).pipe(
+  return this.http.delete<ValeMateriales>(url, this.httpOptions).pipe(
     tap(_ => this.log(`deleted material id=${id}`)),
-    catchError(this.handleError<Material>('deleteMaterial'))
+    catchError(this.handleError<ValeMateriales>('deleteMaterial'))
   );
 }
 

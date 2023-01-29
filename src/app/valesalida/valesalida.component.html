@@ -1,55 +1,215 @@
-
-
-
+<div class="container">
+<!--
 <div id="search-component">
   <h4><label for="search-box">Material Search</label></h4>
 
-  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+  <input   #searchBox id="search-box" (input)="search(searchBox.value)" />
 
   <ul class="search-result">
-    <li *ngFor="let material of materiales$ | async" >
+    <li *ngFor="let material of materiales$ | async">
 
-        {{material.nombre}}
+      {{material.nombre}}
 
-  <button (click)="add(material.nombre)">
-    add
-  </button>
+      <button (click)="add(material.nombre)">
+        add
+      </button>
     </li>
   </ul>
 </div>
+-->
 
-<h2>Vale Materiales</h2>
-<div class="container">
+
+<h2>Vale de Materiales</h2>
+<!--<div class="container">
   <div class="row" style="color:black; background-color:beige; border-style:groove;">
     <h3>Material</h3>
-<ul class="cars">
-<li *ngFor="let valematerial of valemateriales">
+    <ul class="cars">
+      <li *ngFor="let valematerial of valemateriales">
 
 
-  <div class="container">
-    <div class="row" style="color:black; background-color:aliceblue; border-style:groove;">
+        <div class="container">
+          <div class="row" style="color:black; background-color:aliceblue; border-style:groove;">
 
-      <div class="col-6">
-        {{valematerial.nombre}}</div>
+            <div class="col-6">
+              {{valematerial.materiales[valematerial.materiales.length-1].nombre}}</div>
 
-        <div class="col-6 col-sm-3">
-        <input type="number"  name="cantidad"
-        min="1" max="1000"></div>
+            <div class="col-6 col-sm-3">
+              <input type="number" name="cantidad" min="1" max="1000"
+                [(ngModel)]="valematerial.materiales[valematerial.materiales.length-1].cantidad">
+            </div>
 
-      <div class="col-6 col-sm-3">
-        <button class="delete" title="delete material"
-        (click)="delete(valematerial)">x</button>
-      </div>
+
+          </div>
+        </div>
+
+      </li>
+    </ul>
+    <div class="col-6 col-sm-3">
+      <button type="submit" class="btn btn-success" (click)="enviar()">Enviar</button>
+    </div>
+  </div>
+
+</div>
+-->
+
+<form [formGroup]="formulario" (ngSubmit)="save()">
+
+  <!--Seleccionar Supervisor-->
+  <div class="form-group">
+    <div class="row">
+      <div class="col col-md-4 offset-md-1">
+        <div class="mb-3">
+          <label class="form-label">Supervisor</label>
+          <select class="form-select" formControlName="supervisor" aria-label="Default select example">
+            <option disabled selected value> -- seleccionar supervisor -- </option>
+            <option value="Cabrera">Cabrera</option>
+            <option value="Lorenzo">Lorenzo</option>
+          </select>
+
+          <div class="alert alert-danger" *ngIf="
+supervisor?.invalid &&
+	(supervisor?.touched || supervisor?.dirty)
+  ">
+            <div *ngIf="supervisor?.errors?.['required']">
+              Supervisor can't be emtpy
+            </div>
+          </div>
+
+
+        </div>
       </div>
     </div>
+  </div>
+  <!--fin selección supervisor-->
 
-</li>
-</ul>
-<div class="col-6 col-sm-3">
-<button type="submit" class="btn btn-success">Enviar</button>
+
+  <!--Seleccionar Operario-->
+  <div class="form-group">
+    <div class="row">
+      <div class="col col-md-4 offset-md-1">
+        <div class="mb-3">
+          <label class="form-label">Operario</label>
+          <select class="form-select" formControlName="operario" aria-label="Default select example">
+            <option disabled selected value> -- seleccionar operario -- </option>
+            <option value="Triar">Triar</option>
+            <option value="Encina">Encina</option>
+          </select>
+
+          <div class="alert alert-danger" *ngIf="
+operario?.invalid &&
+	(operario?.touched || operario?.dirty)
+  ">
+            <div *ngIf="operario?.errors?.['required']">
+              Operario can't be emtpy
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--fin selección operario-->
+
+
+
+
+  <!--Seleccionar obra-->
+  <div class="form-group">
+    <div class="row">
+      <div class="col col-md-4 offset-md-1">
+        <div class="mb-3">
+          <label class="form-label">Obra</label>
+          <select class="form-select" formControlName="obra" aria-label="Default select example">
+            <option disabled selected value> -- seleccionar obra -- </option>
+            <option value="T5-2078">T5-2078</option>
+            <option value="T5-2244">T5-2244</option>
+          </select>
+
+          <div class="alert alert-danger" *ngIf="
+obra?.invalid &&
+	(obra?.touched || obra?.dirty)
+  ">
+            <div *ngIf="obra?.errors?.['required']">
+              Obra can't be emtpy
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--fin selección obra-->
+
+
+
+  <div class="mb-3" formArrayName="materiales">
+    <div class="row">
+      <div class="col col-md-4 offset-md-1">
+        <button type="button" (click)="addAMaterialFormGroup()" class="btn btn-primary">
+          + Add Material
+        </button>
+      </div>
+    </div>
+    <ng-container *ngFor="let materialForm of materialesForms.controls; let i = index">
+      <div class="row" [formGroupName]="i">
+        <div class="col col-md-5">
+          <div class="mb-3">
+            <label [for]="'material' + i" class="form-label">Material</label>
+
+
+            <input type="text"
+            aria-label="Number"
+            matInput
+            formControlName="material"
+            [matAutocomplete]="auto"
+            class="form-control" [id]="'material' + i"
+            />
+
+
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let material of materiales" [value]="material.nombre">
+                {{material.nombre}}
+              </mat-option>
+            </mat-autocomplete>
+
+
+          </div>
+
+
+          <div
+class="alert alert-danger"
+*ngIf="
+getMaterial(i)?.invalid &&
+  (getMaterial(i)?.touched || getMaterial(i)?.dirty)
+"
+>
+<div *ngIf="getMaterial(i)?.errors?.['required']">
+  Material can't be empty
 </div>
 </div>
+        </div>
+        <div class="col col-md-5">
+          <div class="mb-3">
+            <label [for]="'cantidad' + i" class="form-label">Cantidad</label>
+            <input type="number" class="form-control" [id]="'cantidad' + i" formControlName="cantidad" />
+          </div>
 
+
+        </div>
+        <div class="col col md-2">
+          <button class="btn btn-danger mt-4" type="button" (click)="removeMaterialFormGroup(i)">
+            Delete
+          </button>
+        </div>
+      </div>
+    </ng-container>
+
+
+  </div>
+  <div class="col col-md-4 offset-md-5">
+  <button [disabled]="formulario.invalid" type="submit" class="btn btn-secondary">Enviar</button>
 </div>
-
-
+</form>
+</div>
