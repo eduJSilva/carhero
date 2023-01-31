@@ -158,16 +158,19 @@ obra?.invalid &&
           <div class="mb-3">
             <label [for]="'material' + i" class="form-label">Material</label>
 
-
-            <input type="text"
+            <input 
+            [hidden]="true"
+            type="text"
+            [readOnly]="true"
             aria-label="Number"
             matInput
+            autocomplete="off"
             formControlName="material"
-            [matAutocomplete]="auto"
+            [(ngModel)]="auto.value" 
             class="form-control" [id]="'material' + i"
             />
 
-
+            <!--
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
               <mat-option *ngFor="let material of materiales" [value]="material.nombre">
                 {{material.nombre}}
@@ -175,9 +178,15 @@ obra?.invalid &&
             </mat-autocomplete>
 
 
+-->
+            <mat-select  class="form-control"  matNativeControl required  name="material"  #auto>
+              <mat-option> None</mat-option>
+              <mat-option *ngFor="let material of materiales" [value]="material.nombre">
+              
+                {{material.nombre}}
+              </mat-option>
+            </mat-select>
           </div>
-
-
           <div
 class="alert alert-danger"
 *ngIf="
@@ -212,4 +221,9 @@ getMaterial(i)?.invalid &&
   <button [disabled]="formulario.invalid" type="submit" class="btn btn-secondary">Enviar</button>
 </div>
 </form>
+
+<div class="col col-md-4">
+  <div style="position: fixed">{{ preview }}</div>
+</div>
+
 </div>

@@ -76,6 +76,7 @@ constructor(private fb: FormBuilder, private materialService: MaterialService, p
   }
 */
 
+
 enviar(){
   console.log(this.valemateriales)
 }
@@ -130,6 +131,7 @@ save() {
   getMaterial(index: number) {
     return this.materialesForms.at(index).get('material');
   }
+
 
   addAMaterialFormGroup() {
     this.materialesForms.push(
