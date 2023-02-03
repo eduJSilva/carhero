@@ -17,9 +17,8 @@
   </ul>
 </div>
 -->
+<h2>Vale de Materiales <h4 style="color:cornflowerblue">{{centroDeControl}}</h4></h2>
 
-
-<h2>Vale de Materiales</h2>
 <!--<div class="container">
   <div class="row" style="color:black; background-color:beige; border-style:groove;">
     <h3>Material</h3>
@@ -53,6 +52,21 @@
 -->
 
 <form [formGroup]="formulario" (ngSubmit)="save()">
+
+
+  <!--Fecha / id-->
+  <div >
+    <p>{{today | date:'medium'}}</p>
+          <label class="form-label">Id:</label>
+      <input [readOnly]="true" formControlName="id" autocomplete="off">
+  </div>
+  <!--fin Fecha/id-->
+
+
+
+
+
+  <!--Fin Fecha-->
 
   <!--Seleccionar Supervisor-->
   <div class="form-group">
@@ -142,6 +156,30 @@ obra?.invalid &&
   </div>
   <!--fin selección obra-->
 
+  <!--Seleccionar intersecciones-->
+  <div class="form-group">
+    <div class="row">
+      <div class="col col-md-4 offset-md-1">
+        <div class="mb-3">
+          <label class="form-label">Intersecciones</label>
+          <input type="text" class="form-control" formControlName="intersecciones">
+
+          <div class="alert alert-danger" *ngIf="
+          intersecciones?.invalid &&
+	(intersecciones?.touched || intersecciones?.dirty)
+  ">
+            <div *ngIf="intersecciones?.errors?.['required']">
+              Intersecciones can't be emtpy
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--fin selección intersecciones-->
+
 
 
   <div class="mb-3" formArrayName="materiales">
@@ -158,7 +196,7 @@ obra?.invalid &&
           <div class="mb-3">
             <label [for]="'material' + i" class="form-label">Material</label>
 
-            <input 
+            <input
             [hidden]="true"
             type="text"
             [readOnly]="true"
@@ -166,7 +204,7 @@ obra?.invalid &&
             matInput
             autocomplete="off"
             formControlName="material"
-            [(ngModel)]="auto.value" 
+            [(ngModel)]="auto.value"
             class="form-control" [id]="'material' + i"
             />
 
@@ -182,7 +220,7 @@ obra?.invalid &&
             <mat-select  class="form-control"  matNativeControl required  name="material"  #auto>
               <mat-option> None</mat-option>
               <mat-option *ngFor="let material of materiales" [value]="material.nombre">
-              
+
                 {{material.nombre}}
               </mat-option>
             </mat-select>
@@ -214,16 +252,19 @@ getMaterial(i)?.invalid &&
         </div>
       </div>
     </ng-container>
-
-
   </div>
+
+<div>
+  <textarea formControlName="observaciones" placeholder="Observaciones" cols="50" rows = "3" class ="text-area" ></textarea>
+</div>
+
   <div class="col col-md-4 offset-md-5">
   <button [disabled]="formulario.invalid" type="submit" class="btn btn-secondary">Enviar</button>
 </div>
 </form>
 
 <div class="col col-md-4">
-  <div style="position: fixed">{{ preview }}</div>
+  <div>{{ preview }}</div>
 </div>
 
 </div>

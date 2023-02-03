@@ -24,6 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSelectModule} from '@angular/material/select';
 
+import { HotkeyModule } from 'angular2-hotkeys';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +52,7 @@ HttpClientInMemoryWebApiModule.forRoot(
 ReactiveFormsModule,
 MatAutocompleteModule,
 MatSelectModule,
+ HotkeyModule.forRoot(),
 BrowserAnimationsModule
   ],
   providers: [],
